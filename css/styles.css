@@ -1,13 +1,17 @@
-/* Кастомна палітра від користувача */
+/* ── Кастомна палітра ───────────────────────── */
 :root {
-  --yellow-accent: #f0db4f;
-  --gray-1: #d8d9d8;
-  --gray-2: #8c8c8c;
-  --gray-3: #585859;
-  --gray-4: #272627;
-  --gray-5: #0c0c0d;
+  --bg: #1a1a1a;
+  --bg-card: #222222;
+  --bg-card-hover: #282828;
+  --border: #2e2e2e;
+  --border-hover: #404040;
+  --accent: #4a90d9;
+  --text-primary: #e0e0e0;
+  --text-secondary: #888;
+  --text-muted: #555;
 }
 
+/* ── Reset / base ───────────────────────────── */
 *,
 *::before,
 *::after {
@@ -17,8 +21,11 @@
 body {
   margin: 0;
   font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
-  color: var(--gray-4);
-  background-color: var(--gray-2);
+  color: var(--text-primary);
+  background-color: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
@@ -40,6 +47,7 @@ button {
   font-family: inherit;
 }
 
+/* ── Layout ─────────────────────────────────── */
 .container {
   width: 1200px;
   margin: 0 auto;
@@ -47,53 +55,60 @@ button {
 }
 
 .section {
-  padding-top: 94px;
-  padding-bottom: 94px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  flex: 1;
 }
 
+/* ── Header ─────────────────────────────────── */
 .header {
-  background-color: var(--gray-1);
-  border-bottom: 2px solid var(--gray-3);
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border);
 }
 
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-top: 28px;
+  padding-bottom: 28px;
 }
 
 .logo {
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
   font-size: 26px;
-  color: var(--yellow-accent);
+  color: var(--accent);
+  letter-spacing: 0.02em;
 }
 
 .logo-part {
-  color: var(--gray-4);
+  color: var(--text-primary);
 }
 
 .subtitle {
   font-weight: 500;
   font-size: 14px;
-  color: var(--gray-3);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
 }
 
+/* ── Section title ──────────────────────────── */
 .section-title {
-  margin-bottom: 50px;
+  margin-bottom: 48px;
   font-weight: 700;
-  font-size: 36px;
+  font-size: 32px;
   text-align: center;
-  color: var(--gray-4);
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
 }
 
+/* ── Tasks grid ─────────────────────────────── */
 .tasks-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 30px;
-  margin-bottom: 50px;
+  gap: 20px;
+  margin-bottom: 48px;
 }
 
 .task-item {
@@ -107,23 +122,44 @@ button {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 30px 20px;
-  min-height: 140px;
-  background-color: var(--gray-1);
-  border: 2px solid var(--gray-3);
+  padding: 28px 16px;
+  min-height: 130px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
+}
+
+.task-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s;
 }
 
 .task-btn:hover {
-  background-color: var(--gray-3);
-  border-color: var(--gray-3);
-  box-shadow: 0px 4px 12px rgba(88, 88, 89, 0.3);
-  transform: translateY(-3px);
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+}
+
+.task-btn:hover::before {
+  opacity: 1;
 }
 
 .task-btn:active {
-  background-color: var(--gray-1);
   transform: translateY(0);
   box-shadow: none;
 }
@@ -131,58 +167,66 @@ button {
 .task-number {
   font-weight: 700;
   font-size: 36px;
-  color: var(--yellow-accent);
-  transition: color 0.3s;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform 0.2s;
 }
 
 .task-btn:hover .task-number {
-  color: #ff9500;
+  transform: scale(1.1);
 }
 
 .task-name {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
   text-align: center;
-  color: var(--gray-4);
+  color: var(--text-secondary);
   line-height: 1.4;
-  transition: color 0.3s;
+  transition: color 0.25s;
 }
 
 .task-btn:hover .task-name {
-  color: var(--gray-1);
+  color: var(--text-primary);
 }
 
+/* ── Info box ───────────────────────────────── */
 .info-box {
-  padding: 30px;
-  background-color: var(--gray-1);
+  padding: 28px 32px;
+  background-color: var(--bg-card);
   border-radius: 8px;
-  border: 2px solid var(--gray-3);
+  border: 1px solid var(--border);
 }
 
 .info-title {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   font-weight: 700;
-  font-size: 18px;
-  color: var(--gray-4);
+  font-size: 16px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .info-list {
-  margin-left: 20px;
-  line-height: 1.8;
-  color: var(--gray-3);
+  padding-left: 20px;
+  line-height: 2;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 
 .info-list li {
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
+/* ── Footer ─────────────────────────────────── */
 .footer {
-  padding: 40px 0;
-  background-color: var(--gray-3);
-  border-top: 2px solid var(--gray-4);
+  padding: 28px 0;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border);
 }
 
 .footer-text {
   text-align: center;
-  font-size: 14px;
-  color: var(--gray-1);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
 }
